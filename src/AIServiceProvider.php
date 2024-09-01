@@ -10,14 +10,14 @@ class AIServiceProvider extends ServiceProvider
     {
         // Publish the configuration file
         $this->publishes([
-            __DIR__.'/Config/ai.php' => config_path('ai.php'),
+            __DIR__.'/../config/ai.php' => config_path('ai.php'),
         ], 'config');
     }
 
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/Config/ai.php', 'ai'
+            __DIR__.'/../config/ai.php', 'ai'
         );
     }
 }
