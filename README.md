@@ -192,11 +192,7 @@ If you discover a security vulnerability within this package, please send an ema
 
 ## 📄 License
 
-This package is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
-
-## 📜 Changelog
-
-All notable changes to this project will be documented in this file. [CHANGELOG.md](CHANGELOG.md)
+This package is licensed under the MIT License. See the [LICENSE](https://github.com/endritvs/laravel-ai-toolkit?tab=MIT-1-ov-file) file for more information.
 
 ## 💡 Tips & Tricks
 
