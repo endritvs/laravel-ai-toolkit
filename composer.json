@@ -12,8 +12,12 @@
     "require": {
         "php": ">=8.0",
         "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
-        "openai-php/laravel": "^1.0",
-        "aws/aws-sdk-php": "^3.0"
+        "openai-php/laravel": "^0.7.0",
+        "aws/aws-sdk-php": "^3.304"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.3",
+        "orchestra/testbench": "^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -25,6 +29,11 @@
             "providers": [
                 "Endritvs\\LaravelAIToolkit\\AIServiceProvider"
             ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
         }
     }
 }
