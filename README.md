@@ -1,6 +1,6 @@
 # Laravel AI Toolkit 🧠
 
-Laravel AI Toolkit is a powerful package designed to seamlessly integrate AI models like OpenAI's GPT and AWS's Claude into your Laravel application. With an easy-to-use terface, this toolkit empowers developers to add AI-driven features to their projects effortlessly.
+Laravel AI Toolkit is a powerful package designed to seamlessly integrate AI models, such as OpenAI's GPT and AWS's Claude, into your Laravel application. With an easy-to-use interface, this toolkit empowers developers to effortlessly add AI-driven features to their projects.
 
 ## 🚀 Features
 
