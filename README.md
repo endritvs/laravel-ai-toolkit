@@ -107,7 +107,7 @@ $prompt->setContent('What is the capital of France?')
 
 $response = $prompt->execute();
 
-echo $response; ' Output will be the AI's response.
+echo $response; // Output will be the AI's response.
 ```
 
 ### Query Builder Example
@@ -123,7 +123,7 @@ $response = Prompt::query()
     ->addContent('Tell me a joke')
     ->execute();
 
-echo $response; ' Output will be the AI's response.
+echo $response; // Output will be the AI's response.
 ```
 
 ### Customizing Providers
