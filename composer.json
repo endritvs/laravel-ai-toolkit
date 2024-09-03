@@ -1,23 +1,30 @@
 {
     "name": "endritvs/laravel-ai-toolkit",
-    "description": "AI package for Laravel applications",
+    "description": "A comprehensive AI toolkit for Laravel applications that integrates with popular AI models like OpenAI's GPT and AWS's Claude.",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Endrit Saiti",
-            "email": "endritsaiti8@gmail.com"
+            "email": "endritsaiti8@gmail.com",
+            "role": "Developer"
         }
+    ],
+    "keywords": [
+        "laravel",
+        "ai",
+        "artificial intelligence",
+        "gpt",
+        "aws",
+        "toolkit",
+        "package"
     ],
     "require": {
         "php": ">=8.0",
-        "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
+        "illuminate/support": "^9.0|^10.0|^11.0",
         "openai-php/laravel": "^0.7.0",
-        "aws/aws-sdk-php": "^3.304"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^11.3",
-        "orchestra/testbench": "^7.0"
+        "aws/aws-sdk-php": "^3.304",
+        "endritvs/laravel-ai-toolkit": "dev-main"
     },
     "autoload": {
         "psr-4": {
@@ -35,5 +42,15 @@
         "allow-plugins": {
             "php-http/discovery": true
         }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/endritvs/laravel-ai-toolkit"
+        }
+    ],
+    "support": {
+        "email": "endritsaiti8@gmail.com",
+        "issues": "https://github.com/endritvs/laravel-ai-toolkit/issues"
     }
 }

@@ -13,7 +13,7 @@ Laravel AI Toolkit is a powerful package designed to seamlessly integrate AI mod
 ## 📋 Requirements
 
 - PHP 8.0 or higher
-- Laravel 8.x to 11.x
+- Laravel 9.x to 11.x
 - `openai-php/laravel` package
 - `aws/aws-sdk-php` package
 
@@ -42,15 +42,18 @@ Ensure that you set up the following environment variables in your `.env` file:
 ```env
 # OpenAI Configuration
 OPENAI_API_KEY=your-openai-api-key
-GPT_MODEL=gpt-3.5-turbo
+GPT_MODEL="gpt-3.5-turbo"
 GPT_MAX_TOKENS=4000
 
-# AWS Configuration for Bedrock
+# Claude AI Configuration
+AI_DEFAULT_PROVIDER="claude"
+CLAUDE_MAX_TOKENS=6000
+CLAUDE_MODEL="anthropic.claude-v2"
+
+# AWS Configuration
 AWS_ACCESS_KEY_ID=your-aws-access-key
 AWS_SECRET_ACCESS_KEY=your-aws-secret-key
 AWS_REGION=us-west-2
-CLAUDE_MODEL=anthropic.claude-v2
-CLAUDE_MAX_TOKENS=6000
 ```
 
 ### Configuration File
@@ -170,12 +173,6 @@ try {
 }
 ```
 
-## 🧪 Testing
-
-At the moment, tests are not included in this package. However, you can create your own tests using PHPUnit to ensure your implementation works as expected.
-
-If you wish to contribute tests, please follow the contribution guidelines below.
-
 ## 🛠️ Contributing
 
 Contributions are welcome! If you'd like to contribute to this package, please follow these steps:
@@ -199,12 +196,6 @@ This package is licensed under the MIT License. See the [LICENSE](https://github
 - Use environment-specific configuration to tweak AI model behavior depending on your deployment environment.
 - Monitor the usage and response times of your AI models to optimize performance.
 - Experiment with different AI models to find the one that best suits your application's needs.
-
-## 📚 Resources
-
-- [OpenAI Documentation](https://beta.openai.com/docs/)
-- [AWS Bedrock Documentation](https://aws.amazon.com/bedrock/)
-- [Laravel Documentation](https://laravel.com/docs/)
 
 ## 📬 Support
 
