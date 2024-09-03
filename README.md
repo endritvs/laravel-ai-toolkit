@@ -126,6 +126,30 @@ $response = Prompt::query()
 echo $response; // Output will be the AI's response.
 ```
 
+### Using Different Models Example
+```php
+use Endritvs\LaravelAIToolkit\Models\Prompt;
+
+// Using GPT model
+$gptPrompt = new Prompt();
+$gptPrompt->setContent('Explain quantum computing in simple terms.')
+          ->setModel('gpt-3.5-turbo')
+          ->setMaxTokens(150);
+
+$gptResponse = $gptPrompt->execute();
+echo 'GPT Response: ' . $gptResponse . PHP_EOL;
+
+// Using Claude model
+$claudePrompt = new Prompt();
+$claudePrompt->setContent('What are the latest trends in web development?')
+             ->setModel('anthropic.claude-v2')
+             ->setMaxTokens(150);
+
+$claudeResponse = $claudePrompt->execute();
+echo 'Claude Response: ' . $claudeResponse . PHP_EOL;
+
+```
+
 ### Customizing Providers
 
 You can add custom AI providers by extending the `AIProvider` class and registering them in the `ai.php` configuration file:

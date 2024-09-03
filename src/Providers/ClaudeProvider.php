@@ -25,6 +25,8 @@ class ClaudeProvider extends AIProvider
 
     public function execute($attributes)
     {
+        $modelId = $attributes['model'] ?? $this->model;
+
         $content = "\n\nHuman: " . $attributes['content'] . "\n\nAssistant:";
 
         $body = [
@@ -36,7 +38,7 @@ class ClaudeProvider extends AIProvider
 
         $response = $this->client->invokeModel([
             'body' => json_encode($body),
-            'modelId' => $this->model,
+            'modelId' => $modelId, 
             'accept' => 'application/json',
             'contentType' => 'application/json',
         ]);
