@@ -200,23 +200,6 @@ Then, update the configuration to include your custom provider:
 ],
 ```
 
-### Handling Exceptions
-
-The package will throw exceptions if something goes wrong during the execution of the AI models. Make sure to handle these exceptions in your application:
-
-```php
-use Endritvs\LaravelAIToolkit\Models\Prompt;
-use Exception;
-
-try {
-    $prompt = new Prompt();
-    $response = $prompt->setContent('Tell me something interesting.')->execute();
-    echo $response;
-} catch (Exception $e) {
-    echo 'Error: ' . $e->getMessage();
-}
-```
-
 ## 🛠️ Contributing
 
 Contributions are welcome! If you'd like to contribute to this package, please follow these steps:
