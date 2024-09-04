@@ -8,7 +8,7 @@ Laravel AI Toolkit is a powerful package designed to seamlessly integrate AI mod
 - Configurable AI providers.
 - Customizable query builder for AI models.
 - Exception handling and error reporting.
-- Support for multiple AI models and providers.
+- Support for multiple AI models and providers, with fallback capabilities.
 
 ## 📋 Requirements
 
@@ -45,8 +45,10 @@ OPENAI_API_KEY=your-openai-api-key
 GPT_MODEL="gpt-3.5-turbo"
 GPT_MAX_TOKENS=4000
 
-# Claude AI Configuration
+# Default Provider
 AI_DEFAULT_PROVIDER="claude"
+
+# Claude AI Configuration
 CLAUDE_MAX_TOKENS=6000
 CLAUDE_MODEL="anthropic.claude-v2"
 
@@ -147,6 +149,24 @@ $claudePrompt->setContent('What are the latest trends in web development?')
 
 $claudeResponse = $claudePrompt->execute();
 echo 'Claude Response: ' . $claudeResponse . PHP_EOL;
+
+```
+
+### Using Fallback Providers Example
+You can specify a fallback provider that will be used if the primary provider fails:
+```php
+use Endritvs\LaravelAIToolkit\Models\Prompt;
+
+$prompt = new Prompt();
+$prompt->setContent('Summarize the latest news on AI technology.')
+       ->setProvider('gpt')
+       ->setModel('gpt-3.5-turbo')
+       ->setMaxTokens(150)
+       ->fallback('claude'); // Claude will be used if GPT fails
+
+$response = $prompt->execute();
+
+echo $response;
 
 ```
 

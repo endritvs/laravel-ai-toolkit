@@ -15,6 +15,12 @@ abstract class AIModel
         $this->provider = app(config('ai.providers.' . config('ai.default_provider') . '.class'));
     }
 
+    public function setProvider(string $provider)
+    {
+        $this->provider = app(config("ai.providers.{$provider}.class"));
+        return $this;
+    }
+
     public function __get($key)
     {
         return $this->attributes[$key] ?? null;
