@@ -12,7 +12,7 @@ Laravel AI Toolkit is a powerful package designed to seamlessly integrate AI mod
 
 ## 📋 Requirements
 
-- PHP 8.0 or higher
+- PHP 8.1 or higher
 - Laravel 9.x to 11.x
 - `openai-php/laravel` package
 - `aws/aws-sdk-php` package
