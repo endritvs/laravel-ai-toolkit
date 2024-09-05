@@ -112,6 +112,13 @@ $response = $prompt->execute();
 echo $response; // Output will be the AI's response.
 ```
 
+### Explanation:
+
+- setContent('What is the capital of France?'): Sets the question content for the AI model to process.
+- setModel('gpt-3.5-turbo'): Specifies the AI model to be used.
+- setMaxTokens(50): Limits the response to a maximum of 50 tokens.
+- execute(): Sends the request to the AI model and retrieves the response.
+
 ### Query Builder Example
 
 The query builder allows you to build queries for AI models:
@@ -128,7 +135,18 @@ $response = Prompt::query()
 echo $response; // Output will be the AI's response.
 ```
 
+### Explanation:
+
+- Prompt::query(): Creates a new query using the AIQueryBuilder class.
+- setModel('anthropic.claude-v2'): Sets the AI model to be used.
+- setMaxTokens(100): Limits the response to a maximum of 100 tokens.
+- addContent('Tell me a joke'): Adds content to the request.
+- execute(): Executes the query and retrieves the result.
+
 ### Using Different Models Example
+
+You can use different AI models for different tasks:
+
 ```php
 use Endritvs\LaravelAIToolkit\Models\Prompt;
 
@@ -149,11 +167,26 @@ $claudePrompt->setContent('What are the latest trends in web development?')
 
 $claudeResponse = $claudePrompt->execute();
 echo 'Claude Response: ' . $claudeResponse . PHP_EOL;
-
 ```
 
+### Explanation:
+
+- Using GPT model:
+  - setContent('Explain quantum computing in simple terms.'): Sets the content for GPT to explain.
+  - setModel('gpt-3.5-turbo'): Specifies the GPT model to use.
+  - setMaxTokens(150): Limits the response to 150 tokens.
+  - execute(): Gets the response from GPT.
+
+- Using Claude model:
+  - setContent('What are the latest trends in web development?'): Sets the content for Claude to process.
+  - setModel('anthropic.claude-v2'): Specifies the Claude model.
+  - setMaxTokens(150): Limits the response to 150 tokens.
+  - execute(): Gets the response from Claude.
+  
 ### Using Fallback Providers Example
-You can specify a fallback provider that will be used if the primary provider fails:
+
+Specify a fallback provider to use if the primary provider fails:
+
 ```php
 use Endritvs\LaravelAIToolkit\Models\Prompt;
 
@@ -170,35 +203,126 @@ echo $response;
 
 ```
 
-### Customizing Providers
+### Explanation:
 
-You can add custom AI providers by extending the `AIProvider` class and registering them in the `ai.php` configuration file:
+- setContent('Summarize the latest news on AI technology.'): Sets the content for the request.
+- setProvider('gpt'): Sets the primary provider to GPT.
+- setModel('gpt-3.5-turbo'): Specifies the GPT model.
+- setMaxTokens(150): Limits the response to 150 tokens.
+- fallback('claude'): Configures Claude as the fallback provider if GPT fails.
+- execute(): Executes the request, using the fallback provider if necessary.
 
-```php
-namespace Endritvs\LaravelAIToolkit\Providers;
+### Set Provider Example
 
-use Endritvs\LaravelAIToolkit\Providers\AIProvider;
-
-class CustomAIProvider extends AIProvider
-{
-    public function execute(array $attributes)
-    {
-        // Custom implementation
-        return 'Custom AI response';
-    }
-}
-```
-
-Then, update the configuration to include your custom provider:
+Manually set a different provider for the AI model:
 
 ```php
-'providers' => [
-    'custom' => [
-        'class' => \Endritvs\LaravelAIToolkit\Providers\CustomAIProvider::class,
-        'model' => 'custom-model',
-    ],
-],
+use Endritvs\LaravelAIToolkit\Models\Prompt;
+
+$prompt = new Prompt();
+$prompt->setProvider('claude') // Set a different provider
+       ->setContent('Describe the principles of machine learning.')
+       ->setModel('claude-v2')
+       ->setMaxTokens(150);
+
+$response = $prompt->execute();
+
+echo $response; // The response from the specified provider.
+
 ```
+
+### Explanation:
+- setProvider('claude'): Manually sets the AI provider to Claude.
+- setContent('Describe the principles of machine learning.'): Sets the content to be processed.
+- setModel('claude-v2'): Specifies the Claude model.
+- setMaxTokens(150): Limits the response to 150 tokens.
+- execute(): Sends the request to the specified provider and retrieves the response.
+
+### Advanced Query Builder Example
+
+Dynamically build and execute more complex queries:
+
+```php
+use Endritvs\LaravelAIToolkit\Models\Prompt;
+
+$response = Prompt::query()
+    ->setModel('gpt-3.5-turbo')
+    ->addContent('What are the implications of quantum computing?')
+    ->setMaxTokens(200)
+    ->execute();
+
+echo $response; // Outputs the result based on the complex query.
+```
+### Explanation:
+
+- setModel('gpt-3.5-turbo'): Sets the AI model to be used.
+- addContent('What are the implications of quantum computing?'): Adds additional content to the request.
+- setMaxTokens(200): Limits the response to 200 tokens.
+- execute(): Executes the query and processes the response.
+
+### Complete Example (Everything Included)
+
+Combines all features into a comprehensive example, demonstrating both GPT and Claude models:
+
+```php
+use Endritvs\LaravelAIToolkit\Models\Prompt;
+
+// Example using GPT-4
+$prompt = new Prompt();
+$prompt->setContent('Give a summary of the latest advancements in technology.')
+       ->setModel('gpt-4')
+       ->setMaxTokens(300)
+       ->fallback('claude'); // Fallback to Claude if GPT-4 fails
+
+$response = $prompt->execute();
+
+echo $response; // Outputs the result from GPT-4 or Claude if GPT-4 fails.
+
+// Example using Claude
+$claudePrompt = new Prompt();
+$claudePrompt->setContent('Discuss the impact of recent technological innovations on society.')
+             ->setModel('claude-v2')
+             ->setMaxTokens(300);
+
+$claudeResponse = $claudePrompt->execute();
+
+echo 'Claude Response: ' . $claudeResponse . PHP_EOL;
+
+// Example using Query Builder
+$response = Prompt::query()
+    ->setModel('gpt-3.5-turbo')
+    ->addContent('What is the future of artificial intelligence?')
+    ->setMaxTokens(150)
+    ->execute();
+
+echo $response; // Outputs the result based on the complex query and fallback.
+
+```
+
+### Explanation:
+
+### GPT-4 Example:
+
+- setContent('Give a summary of the latest advancements in technology.'): Sets the content for GPT-4.
+- setModel('gpt-4'): Specifies GPT-4 as the primary model.
+- setMaxTokens(300): Limits the response to 300 tokens.
+- fallback('claude'): Uses Claude as the fallback provider if GPT-4 fails.
+- execute(): Executes the request, retrieving the response from GPT-4 or Claude.
+
+### Claude Example:
+
+- setContent('Discuss the impact of recent technological innovations on society.'): Sets the content for Claude.
+- setModel('claude-v2'): Specifies Claude as the model.
+- setMaxTokens(300): Limits the response to 300 tokens.
+- execute(): Executes the request and retrieves the response from Claude.
+
+### Query Builder Example:
+
+- Prompt::query(): Creates a new query builder instance.
+- setModel('gpt-3.5-turbo'): Specifies GPT-3.5 as the model for the query.
+- addContent('What is the future of artificial intelligence?'): Adds additional content to the query.
+- setMaxTokens(150): Limits the response to 150 tokens.
+- execute(): Executes the query and retrieves the result based on the specified parameters.
 
 ## 🛠️ Contributing
 

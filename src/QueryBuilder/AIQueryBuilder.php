@@ -14,12 +14,6 @@ class AIQueryBuilder
         $this->model = $model;
     }
 
-    public function where(string $attribute, $value)
-    {
-        $this->conditions[$attribute] = $value;
-        return $this;
-    }
-
     public function setModel(string $model)
     {
         return $this->model->setModel($model);
