@@ -47,12 +47,6 @@ abstract class AIModel
         return $this->provider->execute($this->attributes);
     }
 
-    public function setContent(string $content)
-    {
-        $this->attributes['content'] = $content;
-        return $this;
-    }
-
     public function addContent(string $content)
     {
         if (isset($this->attributes['content'])) {

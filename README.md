@@ -103,7 +103,7 @@ You can use the package to interact with AI models as follows:
 use Endritvs\LaravelAIToolkit\Models\Prompt;
 
 $prompt = new Prompt();
-$prompt->setContent('What is the capital of France?')
+$prompt->addContent('What is the capital of France?')
        ->setModel('gpt-3.5-turbo')
        ->setMaxTokens(50);
 
@@ -114,7 +114,7 @@ echo $response; // Output will be the AI's response.
 
 ### Explanation:
 
-- setContent('What is the capital of France?'): Sets the question content for the AI model to process.
+- addContent('What is the capital of France?'): Sets the question content for the AI model to process.
 - setModel('gpt-3.5-turbo'): Specifies the AI model to be used.
 - setMaxTokens(50): Limits the response to a maximum of 50 tokens.
 - execute(): Sends the request to the AI model and retrieves the response.
@@ -152,7 +152,7 @@ use Endritvs\LaravelAIToolkit\Models\Prompt;
 
 // Using GPT model
 $gptPrompt = new Prompt();
-$gptPrompt->setContent('Explain quantum computing in simple terms.')
+$gptPrompt->addContent('Explain quantum computing in simple terms.')
           ->setModel('gpt-3.5-turbo')
           ->setMaxTokens(150);
 
@@ -161,7 +161,7 @@ echo 'GPT Response: ' . $gptResponse . PHP_EOL;
 
 // Using Claude model
 $claudePrompt = new Prompt();
-$claudePrompt->setContent('What are the latest trends in web development?')
+$claudePrompt->addContent('What are the latest trends in web development?')
              ->setModel('anthropic.claude-v2')
              ->setMaxTokens(150);
 
@@ -172,13 +172,13 @@ echo 'Claude Response: ' . $claudeResponse . PHP_EOL;
 ### Explanation:
 
 - Using GPT model:
-  - setContent('Explain quantum computing in simple terms.'): Sets the content for GPT to explain.
+  - addContent('Explain quantum computing in simple terms.'): Sets the content for GPT to explain.
   - setModel('gpt-3.5-turbo'): Specifies the GPT model to use.
   - setMaxTokens(150): Limits the response to 150 tokens.
   - execute(): Gets the response from GPT.
 
 - Using Claude model:
-  - setContent('What are the latest trends in web development?'): Sets the content for Claude to process.
+  - addContent('What are the latest trends in web development?'): Sets the content for Claude to process.
   - setModel('anthropic.claude-v2'): Specifies the Claude model.
   - setMaxTokens(150): Limits the response to 150 tokens.
   - execute(): Gets the response from Claude.
@@ -191,7 +191,7 @@ Specify a fallback provider to use if the primary provider fails:
 use Endritvs\LaravelAIToolkit\Models\Prompt;
 
 $prompt = new Prompt();
-$prompt->setContent('Summarize the latest news on AI technology.')
+$prompt->addContent('Summarize the latest news on AI technology.')
        ->setProvider('gpt')
        ->setModel('gpt-3.5-turbo')
        ->setMaxTokens(150)
@@ -205,7 +205,7 @@ echo $response;
 
 ### Explanation:
 
-- setContent('Summarize the latest news on AI technology.'): Sets the content for the request.
+- addContent('Summarize the latest news on AI technology.'): Sets the content for the request.
 - setProvider('gpt'): Sets the primary provider to GPT.
 - setModel('gpt-3.5-turbo'): Specifies the GPT model.
 - setMaxTokens(150): Limits the response to 150 tokens.
@@ -221,7 +221,7 @@ use Endritvs\LaravelAIToolkit\Models\Prompt;
 
 $prompt = new Prompt();
 $prompt->setProvider('claude') // Set a different provider
-       ->setContent('Describe the principles of machine learning.')
+       ->addContent('Describe the principles of machine learning.')
        ->setModel('claude-v2')
        ->setMaxTokens(150);
 
@@ -233,7 +233,7 @@ echo $response; // The response from the specified provider.
 
 ### Explanation:
 - setProvider('claude'): Manually sets the AI provider to Claude.
-- setContent('Describe the principles of machine learning.'): Sets the content to be processed.
+- addContent('Describe the principles of machine learning.'): Sets the content to be processed.
 - setModel('claude-v2'): Specifies the Claude model.
 - setMaxTokens(150): Limits the response to 150 tokens.
 - execute(): Sends the request to the specified provider and retrieves the response.
@@ -269,7 +269,7 @@ use Endritvs\LaravelAIToolkit\Models\Prompt;
 
 // Example using GPT-4
 $prompt = new Prompt();
-$prompt->setContent('Give a summary of the latest advancements in technology.')
+$prompt->addContent('Give a summary of the latest advancements in technology.')
        ->setModel('gpt-4')
        ->setMaxTokens(300)
        ->fallback('claude'); // Fallback to Claude if GPT-4 fails
@@ -280,7 +280,7 @@ echo $response; // Outputs the result from GPT-4 or Claude if GPT-4 fails.
 
 // Example using Claude
 $claudePrompt = new Prompt();
-$claudePrompt->setContent('Discuss the impact of recent technological innovations on society.')
+$claudePrompt->addContent('Discuss the impact of recent technological innovations on society.')
              ->setModel('claude-v2')
              ->setMaxTokens(300);
 
@@ -303,7 +303,7 @@ echo $response; // Outputs the result based on the complex query and fallback.
 
 ### GPT-4 Example:
 
-- setContent('Give a summary of the latest advancements in technology.'): Sets the content for GPT-4.
+- addContent('Give a summary of the latest advancements in technology.'): Sets the content for GPT-4.
 - setModel('gpt-4'): Specifies GPT-4 as the primary model.
 - setMaxTokens(300): Limits the response to 300 tokens.
 - fallback('claude'): Uses Claude as the fallback provider if GPT-4 fails.
@@ -311,7 +311,7 @@ echo $response; // Outputs the result based on the complex query and fallback.
 
 ### Claude Example:
 
-- setContent('Discuss the impact of recent technological innovations on society.'): Sets the content for Claude.
+- addContent('Discuss the impact of recent technological innovations on society.'): Sets the content for Claude.
 - setModel('claude-v2'): Specifies Claude as the model.
 - setMaxTokens(300): Limits the response to 300 tokens.
 - execute(): Executes the request and retrieves the response from Claude.
