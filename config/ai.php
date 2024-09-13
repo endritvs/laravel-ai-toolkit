@@ -8,7 +8,7 @@ return [
 
         'gpt' => [
             'class' => \Endritvs\LaravelAIToolkit\Providers\GPTProvider::class,
-            'model' => env('GPT_MODEL', 'gpt-3.5-turbo'),
+            'model' => env('GPT_MODEL', 'gpt-4o-mini'),
             'max_tokens' => env('GPT_MAX_TOKENS', 4000),
         ],
 

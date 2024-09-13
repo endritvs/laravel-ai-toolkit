@@ -42,7 +42,7 @@ Ensure that you set up the following environment variables in your `.env` file:
 ```env
 # OpenAI Configuration
 OPENAI_API_KEY=your-openai-api-key
-GPT_MODEL="gpt-3.5-turbo"
+GPT_MODEL="gpt-4o-mini"
 GPT_MAX_TOKENS=4000
 
 # Default Provider
@@ -70,7 +70,7 @@ return [
     'providers' => [
         'gpt' => [
             'class' => \Endritvs\LaravelAIToolkit\Providers\GPTProvider::class,
-            'model' => env('GPT_MODEL', 'gpt-3.5-turbo'),
+            'model' => env('GPT_MODEL', 'gpt-4o-mini'),
             'max_tokens' => env('GPT_MAX_TOKENS', 4000),
         ],
         'claude' => [
@@ -104,7 +104,7 @@ use Endritvs\LaravelAIToolkit\Models\Prompt;
 
 $prompt = new Prompt();
 $prompt->addContent('What is the capital of France?')
-       ->setModel('gpt-3.5-turbo')
+       ->setModel('gpt-4o-mini')
        ->setMaxTokens(50);
 
 $response = $prompt->execute();
@@ -115,7 +115,7 @@ echo $response; // Output will be the AI's response.
 ### Explanation:
 
 - addContent('What is the capital of France?'): Sets the question content for the AI model to process.
-- setModel('gpt-3.5-turbo'): Specifies the AI model to be used.
+- setModel('gpt-4o-mini'): Specifies the AI model to be used.
 - setMaxTokens(50): Limits the response to a maximum of 50 tokens.
 - execute(): Sends the request to the AI model and retrieves the response.
 
@@ -153,7 +153,7 @@ use Endritvs\LaravelAIToolkit\Models\Prompt;
 // Using GPT model
 $gptPrompt = new Prompt();
 $gptPrompt->addContent('Explain quantum computing in simple terms.')
-          ->setModel('gpt-3.5-turbo')
+          ->setModel('gpt-4o-mini')
           ->setMaxTokens(150);
 
 $gptResponse = $gptPrompt->execute();
@@ -173,7 +173,7 @@ echo 'Claude Response: ' . $claudeResponse . PHP_EOL;
 
 - Using GPT model:
   - addContent('Explain quantum computing in simple terms.'): Sets the content for GPT to explain.
-  - setModel('gpt-3.5-turbo'): Specifies the GPT model to use.
+  - setModel('gpt-4o-mini'): Specifies the GPT model to use.
   - setMaxTokens(150): Limits the response to 150 tokens.
   - execute(): Gets the response from GPT.
 
@@ -193,7 +193,7 @@ use Endritvs\LaravelAIToolkit\Models\Prompt;
 $prompt = new Prompt();
 $prompt->addContent('Summarize the latest news on AI technology.')
        ->setProvider('gpt')
-       ->setModel('gpt-3.5-turbo')
+       ->setModel('gpt-4o-mini')
        ->setMaxTokens(150)
        ->fallback('claude'); // Claude will be used if GPT fails
 
@@ -207,7 +207,7 @@ echo $response;
 
 - addContent('Summarize the latest news on AI technology.'): Sets the content for the request.
 - setProvider('gpt'): Sets the primary provider to GPT.
-- setModel('gpt-3.5-turbo'): Specifies the GPT model.
+- setModel('gpt-4o-mini'): Specifies the GPT model.
 - setMaxTokens(150): Limits the response to 150 tokens.
 - fallback('claude'): Configures Claude as the fallback provider if GPT fails.
 - execute(): Executes the request, using the fallback provider if necessary.
@@ -246,7 +246,7 @@ Dynamically build and execute more complex queries:
 use Endritvs\LaravelAIToolkit\Models\Prompt;
 
 $response = Prompt::query()
-    ->setModel('gpt-3.5-turbo')
+    ->setModel('gpt-4o-mini')
     ->addContent('What are the implications of quantum computing?')
     ->setMaxTokens(200)
     ->execute();
@@ -255,7 +255,7 @@ echo $response; // Outputs the result based on the complex query.
 ```
 ### Explanation:
 
-- setModel('gpt-3.5-turbo'): Sets the AI model to be used.
+- setModel('gpt-4o-mini'): Sets the AI model to be used.
 - addContent('What are the implications of quantum computing?'): Adds additional content to the request.
 - setMaxTokens(200): Limits the response to 200 tokens.
 - execute(): Executes the query and processes the response.
@@ -290,7 +290,7 @@ echo 'Claude Response: ' . $claudeResponse . PHP_EOL;
 
 // Example using Query Builder
 $response = Prompt::query()
-    ->setModel('gpt-3.5-turbo')
+    ->setModel('gpt-4o-mini')
     ->addContent('What is the future of artificial intelligence?')
     ->setMaxTokens(150)
     ->execute();
@@ -319,7 +319,7 @@ echo $response; // Outputs the result based on the complex query and fallback.
 ### Query Builder Example:
 
 - Prompt::query(): Creates a new query builder instance.
-- setModel('gpt-3.5-turbo'): Specifies GPT-3.5 as the model for the query.
+- setModel('gpt-4o-mini'): Specifies GPT-4o-mini as the model for the query.
 - addContent('What is the future of artificial intelligence?'): Adds additional content to the query.
 - setMaxTokens(150): Limits the response to 150 tokens.
 - execute(): Executes the query and retrieves the result based on the specified parameters.
