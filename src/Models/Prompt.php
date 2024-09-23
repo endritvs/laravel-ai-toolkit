@@ -2,12 +2,12 @@
 
 namespace Endritvs\LaravelAIToolkit\Models;
 
-use Exception;
+use Endritvs\LaravelAIToolkit\Exceptions\AIProviderException;
 
 class Prompt extends AIModel
 {
     protected $attributes = [];
-    protected $fallbackProvider = null; 
+    protected $fallbackProvider = null;
 
     public function addContent(string $content)
     {
@@ -29,22 +29,23 @@ class Prompt extends AIModel
     {
         try {
             return $this->provider->execute($this->attributes);
-        } catch (\Exception $e) {
+        } catch (AIProviderException $e) {
+
             if ($this->fallbackProvider) {
                 $fallbackModelConfig = config("ai.providers.{$this->fallbackProvider}");
 
                 $this->setProvider($this->fallbackProvider);
-                $this->setModel($fallbackModelConfig['model']); 
-                $this->setMaxTokens($fallbackModelConfig['max_tokens']); 
+                $this->setModel($fallbackModelConfig['model']);
+                $this->setMaxTokens($fallbackModelConfig['max_tokens']);
 
                 try {
                     return $this->provider->execute($this->attributes);
-                } catch (\Exception $fallbackException) {
-                    throw new Exception('Both primary and fallback providers failed.');
+                } catch (AIProviderException $fallbackException) {
+                    throw new AIProviderException('Both primary and fallback providers failed. ' . $fallbackException->getMessage());
                 }
             }
 
-            throw new Exception('Primary provider failed, and no fallback provider is configured.');
+            throw new AIProviderException('Primary provider failed, and no fallback provider is configured. '.$e->getMessage());
         }
     }
 }

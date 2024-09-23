@@ -3,6 +3,8 @@
 namespace Endritvs\LaravelAIToolkit\Providers;
 
 use Aws\BedrockRuntime\BedrockRuntimeClient;
+use Aws\BedrockRuntime\Exception\BedrockRuntimeException;
+use Endritvs\LaravelAIToolkit\Exceptions\AIProviderException;
 
 class ClaudeProvider extends AIProvider
 {
@@ -25,30 +27,35 @@ class ClaudeProvider extends AIProvider
 
     public function execute($attributes)
     {
-        $modelId = $attributes['model'] ?? $this->model;
+        try {
+            $modelId = $attributes['model'] ?? $this->model;
+            $content = "\n\nHuman: " . $attributes['content'] . "\n\nAssistant:";
 
-        $content = "\n\nHuman: " . $attributes['content'] . "\n\nAssistant:";
+            $body = [
+                'prompt' => $content,
+                'max_tokens_to_sample' => $attributes['max_tokens'],
+                'temperature' => config('ai.defaults.temperature', 0.7),
+                'top_p' => config('ai.defaults.top_p', 1.0),
+            ];
 
-        $body = [
-            'prompt' => $content,
-            'max_tokens_to_sample' => $attributes['max_tokens'],
-            'temperature' => config('ai.defaults.temperature', 0.7),
-            'top_p' => config('ai.defaults.top_p', 1.0),
-        ];
+            $response = $this->client->invokeModel([
+                'body' => json_encode($body),
+                'modelId' => $modelId,
+                'accept' => 'application/json',
+                'contentType' => 'application/json',
+            ]);
 
-        $response = $this->client->invokeModel([
-            'body' => json_encode($body),
-            'modelId' => $modelId, 
-            'accept' => 'application/json',
-            'contentType' => 'application/json',
-        ]);
+            $responseBody = json_decode($response->get('body')->getContents(), true);
 
-        $responseBody = json_decode($response->get('body')->getContents(), true);
+            if (isset($responseBody['completion'])) {
+                return $responseBody['completion'];
+            }
 
-        if (isset($responseBody['completion'])) {
-            return $responseBody['completion'];
+            throw AIProviderException::forInvalidResponse('Claude', $responseBody);
+        } catch (BedrockRuntimeException $e) {
+            throw AIProviderException::forRequestFailure('Claude', $e->getAwsErrorMessage() ?? $e->getMessage());
+        } catch (\Exception $e) {
+            throw AIProviderException::forRequestFailure('Claude', $e->getMessage());
         }
-
-        return 'An error occurred: Invalid response from AI model.';
     }
 }
