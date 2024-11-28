@@ -30,6 +30,9 @@ class ClaudeProvider extends AIProvider
         try {
             $modelId = $attributes['model'] ?? $this->model;
             $content = "\n\nHuman: " . $attributes['content'] . "\n\nAssistant:";
+            $roles = isset($attributes['roles']) ? implode("\n", $attributes['roles']) : 'You are a helpful assistant who explains things clearly and concisely.';
+
+            $content = $roles . "\n\n" . $content . "\n\nAssistant:";
 
             $body = [
                 'prompt' => $content,

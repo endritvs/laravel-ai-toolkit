@@ -9,6 +9,12 @@ class Prompt extends AIModel
     protected $attributes = [];
     protected $fallbackProvider = null;
 
+    public function setRoles(array $roles)
+    {
+        $this->attributes['roles'] = $roles;
+        return $this;
+    }
+
     public function addContent(string $content)
     {
         if (isset($this->attributes['content'])) {
@@ -30,7 +36,6 @@ class Prompt extends AIModel
         try {
             return $this->provider->execute($this->attributes);
         } catch (AIProviderException $e) {
-
             if ($this->fallbackProvider) {
                 $fallbackModelConfig = config("ai.providers.{$this->fallbackProvider}");
 
@@ -45,7 +50,7 @@ class Prompt extends AIModel
                 }
             }
 
-            throw new AIProviderException('Primary provider failed, and no fallback provider is configured. '.$e->getMessage());
+            throw new AIProviderException('Primary provider failed, and no fallback provider is configured. ' . $e->getMessage());
         }
     }
 }

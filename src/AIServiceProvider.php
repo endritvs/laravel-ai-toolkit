@@ -8,9 +8,12 @@ class AIServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        // Publish the configuration file
         $this->publishes([
             __DIR__.'/../config/ai.php' => config_path('ai.php'),
+        ], 'config');
+
+        $this->publishes([
+            __DIR__.'/../config/openai.php' => config_path('openai.php'),
         ], 'config');
     }
 
@@ -18,6 +21,10 @@ class AIServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             __DIR__.'/../config/ai.php', 'ai'
+        );
+
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/openai.php', 'openai'
         );
     }
 }
